@@ -1,0 +1,28 @@
+:root {
+  --primary: #00b96b;
+  --primary-light: #e8faf3;
+  --primary-dark: #009a59;
+  --secondary: #6c47ff;
+  --accent-orange: #ff8c00;
+  --accent-red: #ff4d4d;
+  --accent-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --bg: #f7f8fc;
+  --sidebar-bg: #ffffff;
+  --card-bg: #ffffff;
+  --text-main: #1a1d23;
+  --text-sub: #6b7280;
+  --text-muted: #9ca3af;
+  --border: #e5e7eb;
+  --border-light: #f3f4f6;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+  --sidebar-width: 220px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-main); min-height: 100vh; }
+
