@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharma Inventory Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+        <h1 class="logo">PHARMA_E</h1>
+
+        <div class="nav-links">
+            <a href="./Product/add_product.html">Add Product</a>
+            <a href="./Inventory/inventory.html">Inventory</a>
+            <a href="./Alerts/alerts.html">Alerts</a>
+            <a href="./Search/search.html">Search</a>
+        </div>
+    </nav>
+
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+        <h2>Pharmacy Inventory Management System</h2>
+        <p>
+            Manage medicine stock, track expiry dates,
+            monitor low inventory, and search medicine data.
+        </p>
+    </section>
+
+
+    <!-- DASHBOARD CARDS -->
+
+    <section class="dashboard-container">
+
+        <div class="card">
+            <h3>Total Products</h3>
+            <p id="total-products">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Expired Products</h3>
+            <p id="expired-products">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Expiring Soon</h3>
+            <p id="expiring-products">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Low Stock</h3>
+            <p id="low-stock-products">0</p>
+        </div>
+
+    </section>
+
+
+    <!-- QUICK ACTION BUTTONS -->
+
+    <section class="actions">
+
+        <a href="./Product/add_product.html" class="btn">
+            Add Product
+        </a>
+
+        <a href="./Inventory/inventory.html" class="btn">
+            View Inventory
+        </a>
+
+        <a href="./Alerts/alerts.html" class="btn">
+            Check Alerts
+        </a>
+
+        <a href="./Search/search.html" class="btn">
+            Search Medicine
+        </a>
+
+    </section>
+
+
+    <script src="storage.js"></script>
+
+    <script>
+
+        const products = getProducts();
+
+        /* ---------- TOTAL PRODUCTS ---------- */
+
+        const totalProducts = products.length;
+
+        document.getElementById("total-products").innerText = totalProducts;
+
+
+        /* ---------- EXPIRED PRODUCTS ---------- */
+
+        const expiredProducts = products.filter(product =>
+            new Date(product.expiry) < new Date()
+        );
+
+        document.getElementById("expired-products").innerText =
+            expiredProducts.length;
+
+
+        /* ---------- EXPIRING SOON ---------- */
+
+        const today = new Date();
+
+        const expiringSoon = products.filter(product => {
+
+            const expiryDate = new Date(product.expiry);
+
+            const difference =
+                (expiryDate - today) / (1000 * 60 * 60 * 24);
+
+            return difference <= 7 && difference >= 0;
+        });
+
+        document.getElementById("expiring-products").innerText =
+            expiringSoon.length;
+
+
+        /* ---------- LOW STOCK ---------- */
+
+        const lowStock = products.filter(product =>
+            product.quantity < 5
+        );
+
+        document.getElementById("low-stock-products").innerText =
+            lowStock.length;
+
+    </script>
+
+</body>
+
+</html>
