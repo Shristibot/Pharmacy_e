@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Search</title>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="search.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <h1 class="logo">PHARMA_E</h1>
+
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+        </div>
+
+    </nav>
+
+
+    <section class="search-container">
+
+        <h2>Search Medicine Information</h2>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="medicine-input"
+                placeholder="Enter medicine name..."
+            >
+
+            <button onclick="searchMedicine()">
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section id="result-container">
+
+    </section>
+
+
+    <script src="search.js"></script>
+
+</body>
+
+</html>
