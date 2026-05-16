@@ -1,0 +1,517 @@
+/* =========================================
+   ALERT PAGE STYLES
+========================================= */
+
+.container {
+
+  position: relative;
+
+  width: 92%;
+  max-width: 1200px;
+
+  margin: 40px auto 60px auto;
+}
+
+
+
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.page-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+
+  gap: 20px;
+
+  flex-wrap: wrap;
+}
+
+
+
+
+/* =========================================
+   PAGE TITLE
+========================================= */
+
+h1 {
+
+  font-size: 40px;
+
+  font-weight: 800;
+
+  color: var(--text-main);
+
+  margin-bottom: 30px;
+}
+
+
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-btn {
+
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  text-decoration: none;
+
+  background: var(--card-bg);
+
+  color: var(--primary);
+
+  padding: 12px 18px;
+
+  border-radius: var(--radius-sm);
+
+  font-weight: 700;
+
+  box-shadow: var(--shadow-sm);
+
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+
+  background: var(--primary);
+
+  color: white;
+
+  transform: translateY(-2px);
+}
+
+
+
+
+/* =========================================
+   SEARCH SECTION
+========================================= */
+
+.search-wrapper {
+
+  margin-top: 20px;
+
+  margin-bottom: 35px;
+}
+
+
+
+
+#search {
+
+  width: 100%;
+
+  padding: 16px 18px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  background: white;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.3s;
+
+  box-shadow: var(--shadow-sm);
+
+  margin-bottom: 35px;
+}
+
+#search:focus {
+
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 0 4px rgba(0,185,107,0.12),
+    var(--shadow-sm);
+}
+
+
+
+
+/* =========================================
+   SUMMARY CARDS
+========================================= */
+
+.summary-container {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 22px;
+
+  margin-bottom: 45px;
+}
+
+
+
+
+.summary-card {
+
+  position: relative;
+
+  overflow: hidden;
+
+  background: var(--card-bg);
+
+  border-radius: 18px;
+
+  padding: 28px 24px;
+
+  box-shadow: var(--shadow-md);
+
+  transition: 0.35s;
+
+  border: 1px solid var(--border-light);
+}
+
+.summary-card:hover {
+
+  transform: translateY(-5px);
+
+  box-shadow: var(--shadow-lg);
+}
+
+
+
+
+/* =========================================
+   SUMMARY CARD GLOW EFFECT
+========================================= */
+
+.summary-card::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: -40px;
+  right: -40px;
+
+  width: 120px;
+  height: 120px;
+
+  border-radius: 50%;
+
+  opacity: 0.08;
+}
+
+
+
+
+.summary-card.red::before {
+
+  background: var(--accent-red);
+}
+
+.summary-card.yellow::before {
+
+  background: var(--accent-orange);
+}
+
+.summary-card.blue::before {
+
+  background: var(--accent-blue);
+}
+
+
+
+
+/* =========================================
+   SUMMARY TEXT
+========================================= */
+
+.summary-card h3 {
+
+  font-size: 42px;
+
+  margin-bottom: 10px;
+
+  font-weight: 800;
+}
+
+
+
+
+.summary-card p {
+
+  color: var(--text-sub);
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+
+
+
+/* =========================================
+   SUMMARY COLORS
+========================================= */
+
+.summary-card.red {
+
+  border-left: 6px solid var(--accent-red);
+}
+
+.summary-card.red h3 {
+
+  color: var(--accent-red);
+}
+
+
+
+
+.summary-card.yellow {
+
+  border-left: 6px solid var(--accent-orange);
+}
+
+.summary-card.yellow h3 {
+
+  color: var(--accent-orange);
+}
+
+
+
+
+.summary-card.blue {
+
+  border-left: 6px solid var(--accent-blue);
+}
+
+.summary-card.blue h3 {
+
+  color: var(--accent-blue);
+}
+
+
+
+
+/* =========================================
+   SECTION HEADINGS
+========================================= */
+
+h2 {
+
+  font-size: 28px;
+
+  margin-bottom: 18px;
+
+  margin-top: 35px;
+
+  color: var(--text-main);
+}
+
+
+
+
+/* =========================================
+   ALERT CARDS
+========================================= */
+
+.alert-card {
+
+  background: var(--card-bg);
+
+  border-radius: 18px;
+
+  padding: 24px;
+
+  margin-bottom: 20px;
+
+  box-shadow: var(--shadow-md);
+
+  transition: 0.3s;
+
+  border-left: 6px solid transparent;
+}
+
+.alert-card:hover {
+
+  transform: translateY(-4px);
+
+  box-shadow: var(--shadow-lg);
+}
+
+
+
+
+/* =========================================
+   ALERT COLORS
+========================================= */
+
+.alert-card.red {
+
+  border-left-color: var(--accent-red);
+}
+
+.alert-card.yellow {
+
+  border-left-color: var(--accent-orange);
+}
+
+.alert-card.blue {
+
+  border-left-color: var(--accent-blue);
+}
+
+
+
+
+/* =========================================
+   CARD TOP
+========================================= */
+
+.card-top {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 14px;
+
+  flex-wrap: wrap;
+}
+
+
+
+
+/* =========================================
+   PRODUCT NAME
+========================================= */
+
+.alert-card h3 {
+
+  font-size: 22px;
+
+  color: var(--text-main);
+
+  font-weight: 700;
+}
+
+
+
+
+/* =========================================
+   CATEGORY BADGE
+========================================= */
+
+.category {
+
+  background: var(--primary-light);
+
+  color: var(--primary-dark);
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+
+
+
+/* =========================================
+   CARD TEXT
+========================================= */
+
+.alert-card p {
+
+  color: var(--text-sub);
+
+  line-height: 1.7;
+
+  font-size: 15px;
+}
+
+
+
+
+/* =========================================
+   EMPTY MESSAGE
+========================================= */
+
+.empty-message {
+
+  background: white;
+
+  padding: 18px;
+
+  border-radius: var(--radius);
+
+  color: var(--text-muted);
+
+  box-shadow: var(--shadow-sm);
+
+  margin-bottom: 20px;
+}
+
+
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 768px) {
+
+  .container {
+
+    width: 95%;
+  }
+
+  .back-btn {
+
+    position: static;
+
+    display: inline-block;
+
+    margin-bottom: 20px;
+  }
+
+  h1 {
+
+    font-size: 32px;
+  }
+
+  h2 {
+
+    font-size: 24px;
+  }
+
+  .summary-card h3 {
+
+    font-size: 34px;
+  }
+
+  .alert-card {
+
+    padding: 20px;
+  }
+
+}
