@@ -32,10 +32,7 @@ async function searchMedicine() {
                 <p>
                     <strong>Manufacturer:</strong>
 
-                    ${
-                        medicineData.openfda.manufacturer_name?.[0]
-                        || "N/A"
-                    }
+                    ${medicineData.openfda.manufacturer_name?.[0] || "N/A"}
                 </p>
 
                 <p>

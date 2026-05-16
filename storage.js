@@ -35,7 +35,7 @@ if (!localStorage.getItem("products")) {
             name: "Vitamin C",
             category: "Supplement",
             quantity: 2,
-            expiry: "2026-05-25",
+            expiry: "2026-05-2",
             price: 120
         },
 
@@ -46,6 +46,24 @@ if (!localStorage.getItem("products")) {
             quantity: 20,
             expiry: "2027-01-10",
             price: 40
+        },
+
+        {
+            id: 5,
+            name: "Amoxicillin",
+            category: "Antibiotic",
+            quantity: 5,
+            expiry: "2026-05-02",
+            price: 80
+        },
+
+        {
+            id: 6,
+            name: "Ibuprofen",
+            category: "Tablet",
+            quantity: 10,
+            expiry: "2026-12-15",
+            price: 60 
         }
 
     ];
