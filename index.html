@@ -1,143 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharma Inventory Dashboard</title>
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopflow Inventory</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="#" class="brand">shopflow<span>.</span></a>
 
-    <!-- NAVBAR -->
-
-    <nav class="navbar">
-        <h1 class="logo">PharmaFlow</h1>
-
-        <div class="nav-links">
-            <a href="Product/add_product.html">Add Product</a>
-            <a href="Inventory/inventory.html">Inventory</a>
-            <a href="Alerts/alerts.html">Alerts</a>
-            <a href="Search/search.html">Search</a>
-        </div>
-    </nav>
-
-
-    <!-- HERO SECTION -->
-
-    <section class="hero">
-        <h2>Pharmacy Inventory Management System</h2>
-        <p>
-            Manage medicine stock, track expiry dates,
-            monitor low inventory, and search medicine data.
-        </p>
-    </section>
-
-
-    <!-- DASHBOARD CARDS -->
-
-    <section class="dashboard-container">
-
-        <div class="card">
-            <h3>Total Products</h3>
-            <p id="total-products">0</p>
-        </div>
-
-        <div class="card">
-            <h3>Expired Products</h3>
-            <p id="expired-products">0</p>
-        </div>
-
-        <div class="card">
-            <h3>Expiring Soon</h3>
-            <p id="expiring-products">0</p>
-        </div>
-
-        <div class="card">
-            <h3>Low Stock</h3>
-            <p id="low-stock-products">0</p>
-        </div>
-
-    </section>
-
-
-    <!-- QUICK ACTION BUTTONS -->
-
-    <section class="actions">
-
-        <a href="Product/add_product.html" class="btn">
-            Add Product
+      <nav class="nav-list">
+        <a href="#" class="nav-item">
+          <span class="nav-icon">□</span>
+          Dashboard
         </a>
-
-        <a href="Inventory/inventory.html" class="btn">
-            View Inventory
+        <a href="#" class="nav-item">
+          <span class="nav-icon">+</span>
+          Add / Edit Product
         </a>
-
-        <a href="Alerts/alerts.html" class="btn">
-            Check Alerts
+        <a href="#" class="nav-item active">
+          <span class="nav-icon">≡</span>
+          Inventory List
         </a>
-
-        <a href="Search/search.html" class="btn">
-            Search Medicine
+        <a href="#" class="nav-item">
+          <span class="nav-icon">!</span>
+          Expiry Alerts
         </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">⌁</span>
+          Suppliers & Purchases
+        </a>
+      </nav>
 
-    </section>
+      <div class="stock-card">
+        <div class="stock-symbols">
+          <span class="pill-shape"></span>
+          <span class="shield-shape"></span>
+        </div>
+        <h3>Manage your stock efficiently</h3>
+        <p>Get alerts for low stock and expiry dates before they affect sales.</p>
+      </div>
+    </aside>
 
+    <main class="main-panel">
+      <header class="topbar">
+        <label class="search-box">
+          <span class="search-icon"></span>
+          <input id="globalSearch" type="search" placeholder="Search medicines, e.g. Paracetamol" />
+        </label>
 
-    <script src="storage.js"></script>
+        <div class="top-actions">
+          <button class="theme-toggle" id="themeToggle" type="button">
+            <span class="theme-icon"></span>
+            <span class="theme-label">Dark Mode</span>
+          </button>
 
-    <script>
+          <button class="notification" type="button">
+            <span class="bell-icon"></span>
+            <b>3</b>
+          </button>
 
-        const products = getProducts();
+          <button class="profile" type="button">
+            <span>PO</span>
+            Pharmacy Owner
+          </button>
+        </div>
+      </header>
 
-        /* ---------- TOTAL PRODUCTS ---------- */
+      <section class="content">
+        <div class="title-row">
+          <div>
+            <p class="breadcrumb">Dashboard / Inventory List</p>
+            <h1>Inventory List</h1>
+            <p class="subtitle">View, search and manage all medicines in your inventory.</p>
+          </div>
 
-        const totalProducts = products.length;
+          <div class="page-actions">
+            <button class="btn secondary" type="button">Import / Export</button>
+            <button class="btn primary" type="button">+ Add New Product</button>
+          </div>
+        </div>
 
-        document.getElementById("total-products").innerText = totalProducts;
+        <section class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-icon green-soft">BX</span>
+            <p>Total Products</p>
+            <strong class="count-up" data-target="128">0</strong>
+            <small>All medicines</small>
+          </article>
 
+          <article class="stat-card">
+            <span class="stat-icon blue-soft">CT</span>
+            <p>In Stock</p>
+            <strong class="count-up" data-target="106">0</strong>
+            <small>82.8%</small>
+          </article>
 
-        /* ---------- EXPIRED PRODUCTS ---------- */
+          <article class="stat-card">
+            <span class="stat-icon yellow-soft">!</span>
+            <p>Low Stock</p>
+            <strong class="count-up" data-target="12">0</strong>
+            <small>9.4%</small>
+          </article>
 
-        const expiredProducts = products.filter(product =>
-            new Date(product.expiry) < new Date()
-        );
+          <article class="stat-card">
+            <span class="stat-icon cream-soft">TM</span>
+            <p>Expiring Soon</p>
+            <strong class="count-up" data-target="8">0</strong>
+            <small>6.3%</small>
+          </article>
 
-        document.getElementById("expired-products").innerText =
-            expiredProducts.length;
+          <article class="stat-card">
+            <span class="stat-icon red-soft">NO</span>
+            <p>Expired</p>
+            <strong class="count-up" data-target="2">0</strong>
+            <small>1.5%</small>
+          </article>
+        </section>
 
+        <section class="filters">
+          <label class="table-search">
+            <span class="search-icon"></span>
+            <input id="medicineSearch" type="search" placeholder="Search medicine name, generic name or SKU..." />
+          </label>
 
-        /* ---------- EXPIRING SOON ---------- */ 
+          <select id="categoryFilter">
+            <option value="all">All Categories</option>
+            <option value="Pain Relief">Pain Relief</option>
+            <option value="Antibiotics">Antibiotics</option>
+            <option value="Antihistamine">Antihistamine</option>
+            <option value="Vitamins">Vitamins</option>
+          </select>
 
-        const today = new Date();
+          <select id="statusFilter">
+            <option value="all">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
 
-        const expiringSoon = products.filter(product => {
+          <select id="levelFilter">
+            <option value="all">All Levels</option>
+            <option value="In Stock">In Stock</option>
+            <option value="Low Stock">Low Stock</option>
+            <option value="Out of Stock">Out of Stock</option>
+          </select>
 
-            const expiryDate = new Date(product.expiry);
+          <button class="btn filter-btn" type="button">More Filters</button>
+        </section>
 
-            const difference =
-                (expiryDate - today) / (1000 * 60 * 60 * 24);
+        <section class="table-card">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Medicine Details</th>
+                  <th>Category</th>
+                  <th>Pack Size</th>
+                  <th>Stock</th>
+                  <th>Stock Level</th>
+                  <th>Expiry Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryBody"></tbody>
+            </table>
 
-            return difference <= 7 && difference >= 0;
-        });
+            <p class="empty-state" id="emptyState">No medicines match your filters.</p>
+          </div>
+        </section>
+      </section>
 
-        document.getElementById("expiring-products").innerText =
-            expiringSoon.length;
+      <div class="quick-tabs">
+        <div class="quick-track">
+          <button class="active" type="button"><span class="tiny-pill"></span>Medicines</button>
+          <button type="button">0mg</button>
+          <button type="button">Cetirizine 10mg</button>
+          <button type="button">Ibuprofen 400mg</button>
+          <button type="button">Dolo 650mg</button>
+          <button type="button">Azithromycin 500mg</button>
+          <button type="button">Vitamin C 500mg</button>
+          <button type="button">Paracetamol 500mg</button>
+          <button type="button">Amoxicillin 250mg</button>
+        </div>
+      </div>
+    </main>
+  </div>
 
-
-        /* ---------- LOW STOCK ---------- */
-
-        const lowStock = products.filter(product =>
-            product.quantity < 5
-        );
-
-        document.getElementById("low-stock-products").innerText =
-            lowStock.length;
-
-    </script>
-
+  <script src="script.js"></script>
 </body>
-
-</html> 
+</html>
