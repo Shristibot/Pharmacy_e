@@ -651,5 +651,5 @@ setTimeout(() => {
   // Reset summary
   updateSummary();
 
-}, 4500);
+}, 400);
 
