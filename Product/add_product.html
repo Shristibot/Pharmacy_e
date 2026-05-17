@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add / Edit Product - PharmaFlow</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <a class="logo" href="../index.html"
+        >pharmaflow<span class="dot">.</span></a
+      >
+
+      <div class="topbar-actions">
+        <div class="notif-btn">
+          <i class="fa-solid fa-bell"></i>
+          <span class="notif-badge">3</span>
+        </div>
+        <div class="user-btn">
+          <div class="user-avatar">PO</div>
+          Pharmacy Owner
+          <i
+            class="fa-solid fa-chevron-down"
+            style="font-size: 10px; color: var(--text-muted)"
+          ></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-body">
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+        <div class="page-header">
+          <div>
+            <div class="breadcrumb">
+              <span
+                ><a
+                  href="../index.html"
+                  style="color: inherit; text-decoration: none"
+                  >Dashboard</a
+                ></span
+              >
+              / <span>Add / Edit Product</span>
+            </div>
+            <div class="page-title">Add / Edit Product</div>
+            <div class="page-subtitle">
+              Add a new medicine or update existing product details.
+            </div>
+          </div>
+          <a class="btn btn-outline" href="../inventory/index.html"
+            ><i class="fa-solid fa-arrow-left"></i> Back to Inventory</a
+          >
+        </div>
+
+        <div class="form-layout">
+          <div>
+            <!-- Basic Info -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <i style="color: #00b96b;" class="fa-solid fa-circle-info"></i> Basic Information
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Medicine Name <span class="req">*</span></label>
+                  <input
+                    type="text"
+                    id="medicineName"
+                    class="form-input"
+                    placeholder="Enter medicine name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Generic Name</label>
+                  <input
+                    type="text"
+                    id="genericName"
+                    class="form-input"
+                    placeholder="Enter generic name"
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Category <span class="req">*</span></label>
+                  <select id="category" class="form-select">
+                    <option>Pain Relief</option>
+                    <option>Antibiotics</option>
+                    <option>Vitamins</option>
+                    <option>Antihistamine</option>
+                    <option>Acid Reducer</option>
+                    <option>Respiratory</option>
+                    <option>Electrolyte</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Manufacturer</label>
+                  <input
+                    type="text"
+                    id="manufacturer"
+                    class="form-input"
+                    placeholder="Enter manufacturer"
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Strength <span class="req">*</span></label>
+                  <div class="form-input-with-unit">
+                    <input
+                      type="text"
+                      id="strength"
+                      class="form-input"
+                      placeholder="Enter strength"
+                    />
+                    <select id="strengthUnit" class="unit-select">
+                      <option>mg</option>
+                      <option>ml</option>
+                      <option>mcg</option>
+                      <option>g</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Dosage Form <span class="req">*</span></label>
+                  <select id="dosageForm" class="form-select">
+                    <option>Tablet</option>
+                    <option>Capsule</option>
+                    <option>Syrup</option>
+                    <option>Injection</option>
+                    <option>Sachet</option>
+                    <option>Drops</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Pack Size</label>
+                  <input
+                    type="text"
+                    id="packSize"
+                    class="form-input"
+                    placeholder="e.g. 10 Tablets"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Product Code (SKU)</label>
+                  <input
+                    type="text"
+                    id="sku"
+                    class="form-input"
+                    placeholder="Enter SKU"
+                  />
+                </div>
+              </div>
+              <div class="form-row single">
+                <div class="form-group">
+                  <label>Barcode (Optional)</label>
+                  <input
+                    type="text"
+                    id="barcode"
+                    class="form-input"
+                    placeholder="Enter barcode"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Pricing -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <i
+                  class="fa-solid fa-tag"
+                  style="color: var(--accent-orange)"
+                ></i>
+                Pricing & Tax
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label
+                    >Purchase Price (per unit) <span class="req">*</span></label
+                  >
+                  <div class="input-with-prefix">
+                    <span class="input-prefix">₹</span>
+                    <input type="number" id="purchasePrice" step="0.01" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label
+                    >Selling Price (per unit) <span class="req">*</span></label
+                  >
+                  <div class="input-with-prefix">
+                    <span class="input-prefix">₹</span>
+                    <input type="number" id="sellingPrice" step="0.01" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>MRP (per unit)</label>
+                  <div class="input-with-prefix">
+                    <span class="input-prefix">₹</span>
+                    <input type="number" id="mrpPrice" step="0.01" />
+                  </div>
+                  <div class="form-hint">Maximum Retail Price</div>
+                </div>
+
+                <div class="form-group">
+                  <label>Tax Rate <span class="req">*</span></label>
+                  <select id="taxRate" class="form-select">
+                    <option>12%</option>
+                    <option>0%</option>
+                    <option>5%</option>
+                    <option>18%</option>
+                    <option>28%</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Profit Margin</label>
+                <div class="profit-badge" id="profitMargin">0%</div>
+              </div>
+            </div>
+
+            <!-- Additional Information -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <i
+                  class="fa-solid fa-file-medical"
+                  style="color: var(--accent-purple)"
+                ></i>
+                Additional Information
+              </div>
+              <div class="form-row single">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea
+                    class="form-textarea"
+                    placeholder="Enter product description"
+                  ></textarea>
+                  <div class="form-hint" style="text-align: right">0/500</div>
+                </div>
+              </div>
+              <div class="form-row single">
+                <div class="form-group">
+                  <label>Indications</label>
+                  <textarea
+                    class="form-textarea"
+                    placeholder="Enter indications"
+                  ></textarea>
+                  <div class="form-hint" style="text-align: right">0/500</div>
+                </div>
+              </div>
+              <div class="form-row single">
+                <div class="form-group">
+                  <label>Dosage Instructions</label>
+                  <textarea
+                    class="form-textarea"
+                    placeholder="Enter dosage instructions"
+                  ></textarea>
+                  <div class="form-hint" style="text-align: right">0/500</div>
+                </div>
+              </div>
+              <div class="form-row single">
+                <div class="form-group">
+                  <label>Side Effects</label>
+                  <textarea
+                    class="form-textarea"
+                    style="min-height: 55px"
+                    placeholder="Enter known side effects"
+                  ></textarea>
+                  <div class="form-hint" style="text-align: right">0/500</div>
+                </div>
+              </div>
+              <div class="form-row single">
+                <div class="form-group">
+                  <label>Contraindications</label>
+                  <textarea
+                    class="form-textarea"
+                    style="min-height: 55px"
+                    placeholder="Enter contraindications"
+                  ></textarea>
+                  <div class="form-hint" style="text-align: right">0/500</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Upload Documents -->
+<div class="form-section">
+
+  <div class="form-section-title">
+    <i
+      class="fa-solid fa-file-arrow-up"
+      style="color: var(--accent-blue)"
+    ></i>
+
+    Upload Documents
+  </div>
+
+  <!-- Drug License -->
+  <div class="upload-docs-row">
+
+    <span style="color: var(--text-sub)">
+      Drug License (Optional)
+    </span>
+
+    <div class="file-input-row">
+
+      <label
+        for="drugLicenseInput"
+        class="btn btn-outline btn-sm"
+        style="cursor:pointer"
+      >
+        Choose File
+      </label>
+
+      <span
+        class="file-chosen"
+        id="drugLicenseName"
+      ></span>
+
+      <input
+        type="file"
+        id="drugLicenseInput"
+        hidden
+      >
+
+    </div>
+
+    <i
+      id="removeDrugLicense"
+      class="fa-regular fa-circle-xmark"
+      style="
+        color: var(--text-muted);
+        cursor: pointer;
+      "
+    ></i>
+
+  </div>
+
+  <!-- Product Info Sheet -->
+  <div class="upload-docs-row">
+
+    <span style="color: var(--text-sub)">
+      Product Information Sheet (Optional)
+    </span>
+
+    <div class="file-input-row">
+
+      <label
+        for="productInfoInput"
+        class="btn btn-outline btn-sm"
+        style="cursor:pointer"
+      >
+        Choose File
+      </label>
+
+      <span
+        class="file-chosen"
+        id="productInfoName"
+      ></span>
+
+      <input
+        type="file"
+        id="productInfoInput"
+        hidden
+      >
+
+    </div>
+
+    <i
+      id="removeProductInfo"
+      class="fa-regular fa-circle-xmark"
+      style="
+        color: var(--text-muted);
+        cursor: pointer;
+      "
+    ></i>
+
+  </div>
+
+  <!-- Other Documents -->
+  <div class="upload-docs-row">
+
+    <span style="color: var(--text-sub)">
+      Other Documents (Optional)
+    </span>
+
+    <div class="file-input-row">
+
+      <label
+        for="otherDocInput"
+        class="btn btn-outline btn-sm"
+        style="cursor:pointer"
+      >
+        Choose File
+      </label>
+
+      <span
+        class="file-chosen"
+        id="otherDocName"
+      ></span>
+
+      <input
+        type="file"
+        id="otherDocInput"
+        hidden
+      >
+
+    </div>
+
+    <i
+      id="removeOtherDoc"
+      class="fa-regular fa-circle-xmark"
+      style="
+        color: var(--text-muted);
+        cursor: pointer;
+      "
+    ></i>
+
+  </div>
+
+</div>
+            <!-- Form Actions -->
+            <div class="form-actions">
+              <a class="btn btn-outline" href="../inventory/index.html"
+                >Cancel</a
+              >
+              <button class="btn btn-primary">
+                <i class="fa-solid fa-check"></i> Save Product
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Sidebar -->
+          <div>
+            <!-- Product Image -->
+            
+            <div class="prod-sidebar-card">
+
+              <div class="prod-sidebar-title">
+                Product Image
+              </div>
+
+              <label
+                class="image-upload-area"
+                for="productImageInput"
+              >
+
+                <div id="uploadContent">
+
+                  <i class="fa-regular fa-image"></i>
+
+                  Upload product image<br>
+
+                  <span style="font-size:11.5px">
+                    PNG, JPG up to 2MB
+                  </span>
+
+                </div>
+
+                <img
+                  id="productPreview"
+                  alt="Product Preview"
+                  style="
+                    display:none;
+                    width:100%;
+                    max-height:220px;
+                    object-fit:contain;
+                    border-radius:8px;
+                  "
+                >
+
+              </label>
+
+              <input
+                type="file"
+                id="productImageInput"
+                accept="image/*"
+                hidden
+              >
+
+              <!-- Actions -->
+              <div
+                class="file-input-row"
+                style="justify-content:space-between"
+              >
+
+                <button
+                  class="btn btn-outline btn-sm"
+                  id="previewBtn"
+                  type="button"
+                  style="display:none;"
+                >
+                  <i class="fa-regular fa-eye"></i>
+                  Preview
+                </button>
+
+                <i
+                  id="removeImageBtn"
+                  class="fa-regular fa-circle-xmark"
+                  style="
+                    color: var(--text-muted);
+                    cursor: pointer;
+                    font-size:18px;
+                    display:none;
+                  "
+                ></i>
+
+              </div>
+
+            </div>
+            <!-- Quick Summary -->
+            <div class="prod-sidebar-card">
+              <div class="prod-sidebar-title">Quick Summary</div>
+
+              <div class="quick-summary-list">
+                <div class="qs-item">
+                  <span class="qs-label">Medicine</span>
+                  <span class="qs-val" id="summaryMedicine">—</span>
+                </div>
+
+                <div class="qs-item">
+                  <span class="qs-label">Category</span>
+                  <span class="qs-val" id="summaryCategory">—</span>
+                </div>
+
+                <div class="qs-item">
+                  <span class="qs-label">Strength</span>
+                  <span class="qs-val" id="summaryStrength">—</span>
+                </div>
+
+                <div class="qs-item">
+                  <span class="qs-label">Dosage Form</span>
+                  <span class="qs-val" id="summaryDosage">—</span>
+                </div>
+
+                <div class="qs-item">
+                  <span class="qs-label">Pack Size</span>
+                  <span class="qs-val" id="summaryPack">—</span>
+                </div>
+
+                <div class="qs-item">
+                  <span class="qs-label">Selling Price</span>
+                  <span class="qs-val" id="summaryPrice">—</span>
+                </div>
+
+                <div class="qs-item">
+                  <span class="qs-label">Profit Margin</span>
+                  <span class="qs-val" id="summaryProfit">0%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      © 2025 PharmaFlow Pharmacy Management System. All rights reserved.
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
