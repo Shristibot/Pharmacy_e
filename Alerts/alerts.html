@@ -14,20 +14,10 @@
     Inventory Alerts
   </title>
 
-
-
-
-  <!-- GLOBAL PROJECT CSS -->
-
   <link
     rel="stylesheet"
     href="../style.css"
   >
-
-
-
-
-  <!-- ALERT PAGE CSS -->
 
   <link
     rel="stylesheet"
@@ -38,65 +28,86 @@
 
 <body>
 
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <h1 class="logo">
+      PharmaFlow
+    </h1>
+
+    <div class="nav-links">
+
+      <a href="../Product/product.html">
+        Add Product
+      </a>
+
+      <a href="../Inventory/inventory.html">
+        Inventory
+      </a>
+
+      <a href="../Alerts/alerts.html">
+        Alerts
+      </a>
+
+      <a href="../Search/search.html">
+        Search
+      </a>
+
+    </div>
+
+  </nav>
 
 
 
-  <!-- MAIN CONTAINER -->
+
 
   <div class="container">
 
+    <!-- HEADER -->
 
+    <div class="page-header">
 
+      <div>
 
-    <!-- PAGE TITLE -->
+        <h1 class="page-title">
+          Inventory Alerts
+        </h1>
 
-    <h1>
-      Inventory Alerts
-    </h1>
+        <p class="page-subtitle">
+          Monitor expiry dates and stock levels
+        </p>
 
+      </div>
 
+      <a
+        href="../index.html"
+        class="back-btn"
+      >
+        Back to Dashboard
+      </a>
 
-
-    <!-- BACK BUTTON -->
-
-    <a
-      href="../index.html"
-      class="back-btn"
-    >
-      &larr; Back to Dashboard
-    </a>
-
-
-
-
-    <!-- SEARCH INPUT -->
-
-    <input
-      type="text"
-      id="search"
-      placeholder="Search medicines..."
-    >
+    </div>
 
 
 
 
-    <!-- SUMMARY SECTION -->
 
-    <div class="summary-container">
+    <!-- SUMMARY CARDS -->
 
+    <div class="summary-grid">
 
+      <div
+        class="summary-card"
+        onclick="filterAlerts('expired')"
+      >
 
-
-      <!-- EXPIRED -->
-
-      <div class="summary-card red">
-
-        <h3 id="expired-count">
-          0
-        </h3>
-
-        <p>
+        <h3>
           Expired
+        </h3>
+
+        <p id="expired-count">
+          0
         </p>
 
       </div>
@@ -104,16 +115,18 @@
 
 
 
-      <!-- EXPIRING SOON -->
 
-      <div class="summary-card yellow">
+      <div
+        class="summary-card"
+        onclick="filterAlerts('expiring')"
+      >
 
-        <h3 id="expiring-count">
-          0
-        </h3>
-
-        <p>
+        <h3>
           Expiring Soon
+        </h3>
+
+        <p id="expiring-count">
+          0
         </p>
 
       </div>
@@ -121,16 +134,37 @@
 
 
 
-      <!-- LOW STOCK -->
 
-      <div class="summary-card blue">
+      <div
+        class="summary-card"
+        onclick="filterAlerts('lowstock')"
+      >
 
-        <h3 id="lowstock-count">
-          0
+        <h3>
+          Low Stock
         </h3>
 
-        <p>
-          Low Stock
+        <p id="lowstock-count">
+          0
+        </p>
+
+      </div>
+
+
+
+
+
+      <div
+        class="summary-card"
+        onclick="filterAlerts('all')"
+      >
+
+        <h3>
+          Total Products
+        </h3>
+
+        <p id="total-count">
+          0
         </p>
 
       </div>
@@ -140,30 +174,159 @@
 
 
 
-    <!-- EXPIRED PRODUCTS SECTION -->
 
-    <div id="expired-container"></div>
+    <!-- CONTROLS -->
 
+    <div class="controls">
 
-
-
-    <!-- EXPIRING SOON SECTION -->
-
-    <div id="expiring-container"></div>
-
-
+      <input
+        type="text"
+        id="search"
+        placeholder="Search medicine..."
+      >
 
 
-    <!-- LOW STOCK SECTION -->
 
-    <div id="lowstock-container"></div>
+
+
+      <select id="sort">
+
+        <option value="">
+          Sort By
+        </option>
+
+        <option value="name">
+          Alphabetically
+        </option>
+
+        <option value="quantity">
+          Quantity
+        </option>
+
+        <option value="expiry">
+          Expiry Date
+        </option>
+
+      </select>
+
+
+
+
+
+      <button
+        class="export-btn"
+        id="export-btn"
+      >
+        Export Report
+      </button>
+
+    </div>
+
+
+
+
+
+    <!-- FILTER BUTTONS -->
+
+    <div class="filter-buttons">
+
+      <button onclick="filterAlerts('all')">
+        All
+      </button>
+
+      <button onclick="filterAlerts('expired')">
+        Expired
+      </button>
+
+      <button onclick="filterAlerts('expiring')">
+        Expiring Soon
+      </button>
+
+      <button onclick="filterAlerts('lowstock')">
+        Low Stock
+      </button>
+
+    </div>
+
+
+
+
+
+    <!-- TABLE -->
+
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Medicine
+            </th>
+
+            <th>
+              Category
+            </th>
+
+            <th>
+              Quantity
+            </th>
+
+            <th>
+              Expiry
+            </th>
+
+            <th>
+              Status
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+
+
+
+        <tbody id="table-body"></tbody>
+
+      </table>
+
+    </div>
+
+
+
+
+
+    <!-- EMPTY STATE -->
+
+    <div
+      id="empty-state"
+      class="empty-state"
+    >
+      ✅ No products found
+    </div>
+
+
+
+
+
+    <!-- TOAST -->
+
+    <div
+      id="toast"
+      class="toast"
+    >
+      Expired medicines found!
+    </div>
 
   </div>
 
 
 
 
-  <!-- JAVASCRIPT FILE -->
 
   <script src="alert.js"></script>
 
