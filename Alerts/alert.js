@@ -1,65 +1,4 @@
-// =========================================
-// LOCAL STORAGE FUNCTIONS
-// =========================================
-
-function getProducts() {
-
-  return JSON.parse(
-    localStorage.getItem("products")
-  ) || [];
-
-}
-
-function saveProducts(products) {
-
-  localStorage.setItem(
-    "products",
-    JSON.stringify(products)
-  );
-
-}
-
-
-// =========================================
-// SAMPLE DATA
-// =========================================
-
 let products = getProducts();
-
-if (products.length === 0) {
-
-  products = [
-
-    {
-      id: Date.now(),
-      name: "Paracetamol",
-      category: "Tablet",
-      quantity: 4,
-      expiry: "2026-05-20"
-    },
-
-    {
-      id: Date.now() + 1,
-      name: "Vitamin C",
-      category: "Supplement",
-      quantity: 15,
-      expiry: "2026-05-28"
-    },
-
-    {
-      id: Date.now() + 2,
-      name: "Dolo 650",
-      category: "Tablet",
-      quantity: 2,
-      expiry: "2026-05-15"
-    }
-
-  ];
-
-  saveProducts(products);
-
-}
-
 
 // =========================================
 // DATE
@@ -67,136 +6,99 @@ if (products.length === 0) {
 
 const today = new Date();
 
-today.setHours(0,0,0,0);
-
+today.setHours(0, 0, 0, 0);
 
 // =========================================
 // ELEMENTS
 // =========================================
 
-const tableBody =
-  document.getElementById("table-body");
+const tableBody = document.getElementById("table-body");
 
-const searchInput =
-  document.getElementById("search");
+const searchInput = document.getElementById("search");
 
-const sortSelect =
-  document.getElementById("sort");
+const sortSelect = document.getElementById("sort");
 
-const filterButtons =
-  document.querySelectorAll(".filter-btn");
+const filterButtons = document.querySelectorAll(".filter-btn");
 
-const expiredCount =
-  document.getElementById("expired-count");
+const expiredCount = document.getElementById("expired-count");
 
-const expiringCount =
-  document.getElementById("expiring-count");
+const expiringCount = document.getElementById("expiring-count");
 
-const lowstockCount =
-  document.getElementById("lowstock-count");
-
+const lowstockCount = document.getElementById("lowstock-count");
 
 // =========================================
 // GET DAYS LEFT
 // =========================================
 
 function getDaysLeft(expiryDate) {
+  const expiry = parseDateOnly(expiryDate);
 
-  const expiry =
-    new Date(expiryDate);
+  if (!expiry) {
+    return Number.NEGATIVE_INFINITY;
+  }
 
-  return Math.ceil(
-    (expiry - today) /
-    (1000 * 60 * 60 * 24)
-  );
-
+  return Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
 }
 // =========================================
 // STATUS FUNCTION
 // =========================================
 
 function getStatus(product) {
-
-  const daysLeft =
-    getDaysLeft(product.expiry);
+  const daysLeft = getDaysLeft(product.expiry);
 
   if (daysLeft < 0) {
-
     return {
       text: "Expired",
-      class: "expired"
+      class: "expired",
     };
-
   }
 
   if (daysLeft <= 7) {
-
     return {
       text: "Expiring Soon",
-      class: "expiring"
+      class: "expiring",
     };
-
   }
 
   if (product.quantity < 10) {
-
     return {
       text: "Low Stock",
-      class: "lowstock"
+      class: "lowstock",
     };
-
   }
 
   return {
     text: "Safe",
-    class: "safe"
+    class: "safe",
   };
-
 }
 // =========================================
 // UPDATE COUNTS
 // =========================================
 
 function updateCounts() {
+  const expired = products.filter((p) => getDaysLeft(p.expiry) < 0);
 
-  const expired =
-    products.filter(
-      p => getDaysLeft(p.expiry) < 0
-    );
+  const expiring = products.filter((p) => {
+    const days = getDaysLeft(p.expiry);
 
-  const expiring =
-    products.filter(
-      p => {
-        const days =
-          getDaysLeft(p.expiry);
+    return days >= 0 && days <= 7;
+  });
 
-        return days >= 0 && days <= 7;
-      }
-    );
+  const lowstock = products.filter((p) => p.quantity < 10);
 
-  const lowstock =
-    products.filter(
-      p => p.quantity < 10
-    );
+  expiredCount.textContent = expired.length;
 
-  expiredCount.textContent =
-    expired.length;
+  expiringCount.textContent = expiring.length;
 
-  expiringCount.textContent =
-    expiring.length;
-
-  lowstockCount.textContent =
-    lowstock.length;
-
+  lowstockCount.textContent = lowstock.length;
 }
 // =========================================
 // RENDER TABLE
 // =========================================
 
 function renderTable(data) {
-
   if (data.length === 0) {
-
     tableBody.innerHTML = `
 
       <tr>
@@ -213,14 +115,11 @@ function renderTable(data) {
     `;
 
     return;
-
   }
 
-  tableBody.innerHTML =
-    data.map(product => {
-
-      const status =
-        getStatus(product);
+  tableBody.innerHTML = data
+    .map((product) => {
+      const status = getStatus(product);
 
       return `
 
@@ -258,9 +157,8 @@ function renderTable(data) {
         </tr>
 
       `;
-
-    }).join("");
-
+    })
+    .join("");
 }
 // =========================================
 // FILTER PRODUCTS
@@ -269,98 +167,54 @@ function renderTable(data) {
 let currentFilter = "all";
 
 function filterProducts() {
+  let filtered = [...products];
 
-  let filtered =
-    [...products];
+  const searchValue = searchInput.value.toLowerCase();
 
-  const searchValue =
-    searchInput.value.toLowerCase();
-
-  filtered = filtered.filter(product => {
-
+  filtered = filtered.filter((product) => {
     return (
-      product.name
-        .toLowerCase()
-        .includes(searchValue)
-
-      ||
-
-      product.category
-        .toLowerCase()
-        .includes(searchValue)
+      product.name.toLowerCase().includes(searchValue) ||
+      product.category.toLowerCase().includes(searchValue)
     );
   });
   if (currentFilter === "expired") {
-
-    filtered =
-      filtered.filter(
-        p => getDaysLeft(p.expiry) < 0
-      );
+    filtered = filtered.filter((p) => getDaysLeft(p.expiry) < 0);
   }
   if (currentFilter === "expiring") {
-    filtered =
-      filtered.filter(
-        p => {
-          const days =
-            getDaysLeft(p.expiry);
-          return days >= 0 && days <= 7;
-        }
-      );
+    filtered = filtered.filter((p) => {
+      const days = getDaysLeft(p.expiry);
+      return days >= 0 && days <= 7;
+    });
   }
   if (currentFilter === "lowstock") {
-    filtered =
-      filtered.filter(
-        p => p.quantity < 10
-      );
+    filtered = filtered.filter((p) => p.quantity < 10);
   }
-  const sortValue =
-    sortSelect.value;
+  const sortValue = sortSelect.value;
   if (sortValue === "name") {
-    filtered.sort(
-      (a,b) =>
-      a.name.localeCompare(b.name)
-    );
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
   }
   if (sortValue === "quantity") {
-    filtered.sort(
-      (a,b) =>
-      a.quantity - b.quantity
-    );
+    filtered.sort((a, b) => a.quantity - b.quantity);
   }
   if (sortValue === "expiry") {
-    filtered.sort(
-      (a,b) =>
-      new Date(a.expiry)
-      -
-      new Date(b.expiry)
-    );
+    filtered.sort((a, b) => new Date(a.expiry) - new Date(b.expiry));
   }
   renderTable(filtered);
 }
 // =========================================
 // EVENTS
 // =========================================
-searchInput.addEventListener(
-  "input",
-  filterProducts
-);
-sortSelect.addEventListener(
-  "change",
-  filterProducts
-);
-filterButtons.forEach(button => {
-  button.addEventListener(
-    "click",
-    () => {
-      filterButtons.forEach(btn => {
-        btn.classList.remove("active");
-      });
-      button.classList.add("active");
-      currentFilter =
-        button.dataset.filter;
-      filterProducts();
-    }
-  );
+searchInput.addEventListener("input", filterProducts);
+sortSelect.addEventListener("change", filterProducts);
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    filterButtons.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+    button.classList.add("active");
+    currentFilter = button.dataset.filter;
+    filterProducts();
+  });
 });
 // =========================================
 // INITIAL LOAD
@@ -372,22 +226,11 @@ filterProducts();
 // =========================================
 async function fetchMedicineData() {
   try {
-    const response =
-      await fetch(
-        "https://dummyjson.com/products"
-      );
-    const data =
-      await response.json();
-    console.log(
-      "Fetched API Data:",
-      data
-    );
-  }
-  catch(error) {
-    console.log(
-      "Fetch Error:",
-      error
-    );
+    const response = await fetch("https://dummyjson.com/products");
+    const data = await response.json();
+    console.log("Fetched API Data:", data);
+  } catch (error) {
+    console.log("Fetch Error:", error);
   }
 }
 fetchMedicineData();
