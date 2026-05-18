@@ -15,12 +15,11 @@
   --text-muted: #9ca3af;
   --border: #e5e7eb;
   --border-light: #f3f4f6;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06),
-               0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
 
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
 
-  --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
 
   --radius: 12px;
   --radius-sm: 8px;
@@ -35,19 +34,18 @@
   box-sizing: border-box;
 }
 
-
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   background: var(--bg);
   color: var(--text-main);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-
 
 /* ---------- NAVBAR ---------- */
 
 .navbar {
-
   background: var(--sidebar-bg);
 
   padding: 20px 40px;
@@ -71,7 +69,6 @@ body {
 }
 
 .nav-links a {
-
   text-decoration: none;
   color: var(--text-sub);
 
@@ -83,19 +80,19 @@ body {
 .nav-links a:hover {
   color: var(--primary);
 }
-
+.nav-links a.active {
+  color: var(--primary);
+}
 
 /* ---------- HERO ---------- */
 
 .hero {
-
   padding: 60px 20px;
 
   text-align: center;
 }
 
 .hero h2 {
-
   font-size: 42px;
   margin-bottom: 16px;
 
@@ -103,7 +100,6 @@ body {
 }
 
 .hero p {
-
   color: var(--text-sub);
 
   max-width: 700px;
@@ -114,29 +110,24 @@ body {
   font-size: 18px;
 }
 
-
 /* ---------- DASHBOARD ---------- */
 
 .dashboard-container {
-
   width: 90%;
   margin: auto;
 
   display: grid;
 
-  grid-template-columns:
-      repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 
   gap: 24px;
 
   margin-top: 30px;
 }
 
-
 /* ---------- CARDS ---------- */
 
 .card {
-
   background: var(--card-bg);
 
   padding: 30px;
@@ -153,7 +144,6 @@ body {
 }
 
 .card h3 {
-
   color: var(--text-sub);
 
   margin-bottom: 16px;
@@ -162,18 +152,15 @@ body {
 }
 
 .card p {
-
   font-size: 42px;
   font-weight: bold;
 
   color: var(--primary);
 }
 
-
 /* ---------- ACTION BUTTONS ---------- */
 
 .actions {
-
   margin-top: 50px;
 
   display: flex;
@@ -184,7 +171,6 @@ body {
 }
 
 .btn {
-
   text-decoration: none;
 
   background: var(--primary);
@@ -205,23 +191,32 @@ body {
   background: var(--primary-dark);
 }
 
+/* ---------- FOOTER ---------- */
+
+.footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: #fff;
+  border-top: 1px solid var(--border);
+}
 
 /* ---------- RESPONSIVE ---------- */
 
 @media (max-width: 768px) {
-
   .navbar {
-      flex-direction: column;
-      gap: 20px;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .nav-links {
-      flex-wrap: wrap;
-      justify-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .hero h2 {
-      font-size: 32px;
+    font-size: 32px;
   }
-
 }
