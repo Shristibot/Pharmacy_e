@@ -412,7 +412,7 @@ saveBtn.addEventListener("click", function (e) {
   // Reload After Alert
   setTimeout(() => {
     location.reload();
-  }, 4500);
+  }, 2500);
 });
 
 // ======================================
@@ -481,53 +481,3 @@ function dismissAlert(alertBox) {
     }
   }, 300);
 }
-
-// ======================================
-// RESET FORM
-// ======================================
-
-setTimeout(() => {
-  // Reset all inputs
-  document.querySelectorAll("input, textarea").forEach((field) => {
-    field.value = "";
-  });
-
-  // Reset selects
-  document.querySelectorAll("select").forEach((select) => {
-    select.selectedIndex = 0;
-  });
-
-  // Reset uploaded document names
-  document.getElementById("drugLicenseName").textContent = "";
-
-  document.getElementById("productInfoName").textContent = "";
-
-  document.getElementById("otherDocName").textContent = "";
-
-  // Reset image
-  productImageData = "";
-
-  productPreview.src = "";
-
-  productPreview.style.display = "none";
-
-  uploadContent.style.display = "block";
-
-  previewBtn.style.display = "none";
-
-  removeImageBtn.style.display = "none";
-
-  imageInput.value = "";
-
-  // Reset uploaded docs object
-  uploadedDocuments = {
-    drugLicense: null,
-
-    productInfo: null,
-
-    otherDocument: null,
-  };
-
-  // Reset summary
-  updateSummary();
-}, 10);
