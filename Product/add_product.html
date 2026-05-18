@@ -15,12 +15,19 @@
     <link rel="stylesheet" href="add_product.css" />
   </head>
   <body>
-    <!-- TOPBAR -->
-    <div class="topbar">
-      <a class="logo" href="../index.html">PharmaFlow.</a>
+    <!-- NAVBAR -->
 
-      
-    </div>
+    <nav class="navbar">
+      <h1 class="logo">PharmaFlow</h1>
+
+      <div class="nav-links">
+        <a href="../index.html">Dashboard</a>
+        <a class="active" href="../Product/add_product.html">Add Product</a>
+        <a href="../Inventory/inventory.html">Inventory</a>
+        <a href="../Alerts/alerts.html">Alerts</a>
+        <a href="../Search/search.html">Search</a>
+      </div>
+    </nav>
 
     <div class="app-body">
       <!-- MAIN CONTENT -->
@@ -52,7 +59,8 @@
             <!-- Basic Info -->
             <div class="form-section">
               <div class="form-section-title">
-                <i style="color: #00b96b;" class="fa-solid fa-circle-info"></i> Basic Information
+                <i style="color: #00b96b" class="fa-solid fa-circle-info"></i>
+                Basic Information
               </div>
               <div class="form-row">
                 <div class="form-group">
@@ -129,14 +137,26 @@
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Pack Size</label>
+                  <label>Pack Size <span class="req">*</span></label>
                   <input
                     type="text"
                     id="packSize"
                     class="form-input"
+                    required
                     placeholder="e.g. 10 Tablets"
                   />
                 </div>
+                <div class="form-group">
+                  <label>Expiry Date <span class="req">*</span></label>
+                  <input
+                    type="date"
+                    id="expiryDate"
+                    class="form-input"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-row">
                 <div class="form-group">
                   <label>Product Code (SKU)</label>
                   <input
@@ -146,8 +166,6 @@
                     placeholder="Enter SKU"
                   />
                 </div>
-              </div>
-              <div class="form-row single">
                 <div class="form-group">
                   <label>Barcode (Optional)</label>
                   <input
@@ -284,141 +302,97 @@
             </div>
 
             <!-- Upload Documents -->
-<div class="form-section">
+            <div class="form-section">
+              <div class="form-section-title">
+                <i
+                  class="fa-solid fa-file-arrow-up"
+                  style="color: var(--accent-blue)"
+                ></i>
 
-  <div class="form-section-title">
-    <i
-      class="fa-solid fa-file-arrow-up"
-      style="color: var(--accent-blue)"
-    ></i>
+                Upload Documents
+              </div>
 
-    Upload Documents
-  </div>
+              <!-- Drug License -->
+              <div class="upload-docs-row">
+                <span style="color: var(--text-sub)">
+                  Drug License (Optional)
+                </span>
 
-  <!-- Drug License -->
-  <div class="upload-docs-row">
+                <div class="file-input-row">
+                  <label
+                    for="drugLicenseInput"
+                    class="btn btn-outline btn-sm"
+                    style="cursor: pointer"
+                  >
+                    Choose File
+                  </label>
 
-    <span style="color: var(--text-sub)">
-      Drug License (Optional)
-    </span>
+                  <span class="file-chosen" id="drugLicenseName"></span>
 
-    <div class="file-input-row">
+                  <input type="file" id="drugLicenseInput" hidden />
+                </div>
 
-      <label
-        for="drugLicenseInput"
-        class="btn btn-outline btn-sm"
-        style="cursor:pointer"
-      >
-        Choose File
-      </label>
+                <i
+                  id="removeDrugLicense"
+                  class="fa-regular fa-circle-xmark"
+                  style="color: var(--text-muted); cursor: pointer"
+                ></i>
+              </div>
 
-      <span
-        class="file-chosen"
-        id="drugLicenseName"
-      ></span>
+              <!-- Product Info Sheet -->
+              <div class="upload-docs-row">
+                <span style="color: var(--text-sub)">
+                  Product Information Sheet (Optional)
+                </span>
 
-      <input
-        type="file"
-        id="drugLicenseInput"
-        hidden
-      >
+                <div class="file-input-row">
+                  <label
+                    for="productInfoInput"
+                    class="btn btn-outline btn-sm"
+                    style="cursor: pointer"
+                  >
+                    Choose File
+                  </label>
 
-    </div>
+                  <span class="file-chosen" id="productInfoName"></span>
 
-    <i
-      id="removeDrugLicense"
-      class="fa-regular fa-circle-xmark"
-      style="
-        color: var(--text-muted);
-        cursor: pointer;
-      "
-    ></i>
+                  <input type="file" id="productInfoInput" hidden />
+                </div>
 
-  </div>
+                <i
+                  id="removeProductInfo"
+                  class="fa-regular fa-circle-xmark"
+                  style="color: var(--text-muted); cursor: pointer"
+                ></i>
+              </div>
 
-  <!-- Product Info Sheet -->
-  <div class="upload-docs-row">
+              <!-- Other Documents -->
+              <div class="upload-docs-row">
+                <span style="color: var(--text-sub)">
+                  Other Documents (Optional)
+                </span>
 
-    <span style="color: var(--text-sub)">
-      Product Information Sheet (Optional)
-    </span>
+                <div class="file-input-row">
+                  <label
+                    for="otherDocInput"
+                    class="btn btn-outline btn-sm"
+                    style="cursor: pointer"
+                  >
+                    Choose File
+                  </label>
 
-    <div class="file-input-row">
+                  <span class="file-chosen" id="otherDocName"></span>
 
-      <label
-        for="productInfoInput"
-        class="btn btn-outline btn-sm"
-        style="cursor:pointer"
-      >
-        Choose File
-      </label>
+                  <input type="file" id="otherDocInput" hidden />
+                </div>
 
-      <span
-        class="file-chosen"
-        id="productInfoName"
-      ></span>
-
-      <input
-        type="file"
-        id="productInfoInput"
-        hidden
-      >
-
-    </div>
-
-    <i
-      id="removeProductInfo"
-      class="fa-regular fa-circle-xmark"
-      style="
-        color: var(--text-muted);
-        cursor: pointer;
-      "
-    ></i>
-
-  </div>
-
-  <!-- Other Documents -->
-  <div class="upload-docs-row">
-
-    <span style="color: var(--text-sub)">
-      Other Documents (Optional)
-    </span>
-
-    <div class="file-input-row">
-
-      <label
-        for="otherDocInput"
-        class="btn btn-outline btn-sm"
-        style="cursor:pointer"
-      >
-        Choose File
-      </label>
-
-      <span
-        class="file-chosen"
-        id="otherDocName"
-      ></span>
-
-      <input
-        type="file"
-        id="otherDocInput"
-        hidden
-      >
-
-    </div>
-
-    <i
-      id="removeOtherDoc"
-      class="fa-regular fa-circle-xmark"
-      style="
-        color: var(--text-muted);
-        cursor: pointer;
-      "
-    ></i>
-
-  </div>
-
-</div>
+                <i
+                  id="removeOtherDoc"
+                  class="fa-regular fa-circle-xmark"
+                  style="color: var(--text-muted); cursor: pointer"
+                ></i>
+              </div>
+            </div>
             <!-- Form Actions -->
             <div class="form-actions">
               <a class="btn btn-outline" href="../Inventory/inventory.html"
@@ -433,42 +407,30 @@
           <!-- Right Sidebar -->
           <div>
             <!-- Product Image -->
-            
+
             <div class="prod-sidebar-card">
+              <div class="prod-sidebar-title">Product Image</div>
 
-              <div class="prod-sidebar-title">
-                Product Image
-              </div>
-
-              <label
-                class="image-upload-area"
-                for="productImageInput"
-              >
-
+              <label class="image-upload-area" for="productImageInput">
                 <div id="uploadContent">
-
                   <i class="fa-regular fa-image"></i>
 
-                  Upload product image<br>
+                  Upload product image<br />
 
-                  <span style="font-size:11.5px">
-                    PNG, JPG up to 2MB
-                  </span>
-
+                  <span style="font-size: 11.5px"> PNG, JPG up to 2MB </span>
                 </div>
 
                 <img
                   id="productPreview"
                   alt="Product Preview"
                   style="
-                    display:none;
-                    width:100%;
-                    max-height:220px;
-                    object-fit:contain;
-                    border-radius:8px;
+                    display: none;
+                    width: 100%;
+                    max-height: 220px;
+                    object-fit: contain;
+                    border-radius: 8px;
                   "
-                >
-
+                />
               </label>
 
               <input
@@ -476,19 +438,18 @@
                 id="productImageInput"
                 accept="image/*"
                 hidden
-              >
+              />
 
               <!-- Actions -->
               <div
                 class="file-input-row"
-                style="justify-content:space-between"
+                style="justify-content: space-between"
               >
-
                 <button
                   class="btn btn-outline btn-sm"
                   id="previewBtn"
                   type="button"
-                  style="display:none;"
+                  style="display: none"
                 >
                   <i class="fa-regular fa-eye"></i>
                   Preview
@@ -500,13 +461,11 @@
                   style="
                     color: var(--text-muted);
                     cursor: pointer;
-                    font-size:18px;
-                    display:none;
+                    font-size: 18px;
+                    display: none;
                   "
                 ></i>
-
               </div>
-
             </div>
             <!-- Quick Summary -->
             <div class="prod-sidebar-card">
@@ -556,9 +515,10 @@
 
     <!-- FOOTER -->
     <div class="footer">
-      © 2025 PharmaFlow Pharmacy Management System. All rights reserved.
+      © 2026 PharmaFlow Pharmacy Management System. All rights reserved.
     </div>
 
+    <script src="../storage.js"></script>
     <script src="add_product.js"></script>
   </body>
 </html>
