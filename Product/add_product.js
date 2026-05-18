@@ -12,10 +12,6 @@ const taxRate = document.getElementById("taxRate");
 
 const profitMargin = document.getElementById("profitMargin");
 
-// ======================================
-// SUMMARY UPDATE
-// ======================================
-
 function updateSummary() {
 
   document.getElementById("summaryMedicine").textContent =
@@ -39,8 +35,7 @@ function updateSummary() {
     sellingPrice.value
       ? `₹${sellingPrice.value}`
       : "—";
-
-  // Profit Calculation
+  
   const purchase = parseFloat(purchasePrice.value) || 0;
 
   const selling = parseFloat(sellingPrice.value) || 0;
@@ -216,9 +211,6 @@ removeImageBtn.addEventListener("click", () => {
   imageInput.value = "";
 });
 
-// ======================================
-// DOCUMENT HANDLING
-// ======================================
 
 let uploadedDocuments = {
 
@@ -382,14 +374,6 @@ for (const field of requiredFields) {
 
 // Stop form submit
 if (!isValid) return;
-
-// ======================================
-// PRODUCT OBJECT
-// ======================================
-
-
-
-
   const productData = {
 
     id: Date.now(),
@@ -499,9 +483,6 @@ if (!isValid) return;
   }, 4500);
 });
 
-// ======================================
-// CUSTOM ALERT
-// ======================================
 
 
 function showCustomAlert(
