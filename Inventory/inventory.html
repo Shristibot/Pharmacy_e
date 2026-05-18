@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PharmaFlow – Inventory</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="inventory.css"/>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header>
+    <div class="logo">Pharma<span>Flow</span></div>
+    <nav class="top-nav">
+      <a href="#">Dashboard</a>
+      <a href="#" class="active">Inventory</a>
+      <a href="#">Alerts</a>
+      <a href="#">Search</a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="page-head">
+      <h1>Medicine <span>Inventory</span></h1>
+      <div class="top-actions">
+        <button class="btn btn-outline">⬇ Export</button>
+        <button class="btn btn-primary">＋ Add Medicine</button>
+      </div>
+    </div>
+
+    <!-- SEARCH & FILTER -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="🔍  Search medicine name, category…" oninput="filterTable()"/>
+      <select id="filterStatus" onchange="filterTable()">
+        <option value="">All Status</option>
+        <option value="In Stock">In Stock</option>
+        <option value="Low Stock">Low Stock</option>
+        <option value="Expired">Expired</option>
+        <option value="Out of Stock">Out of Stock</option>
+      </select>
+      <select id="filterCat" onchange="filterTable()">
+        <option value="">All Categories</option>
+        <option value="Antibiotic">Antibiotic</option>
+        <option value="Analgesic">Analgesic</option>
+        <option value="Antacid">Antacid</option>
+        <option value="Vitamin">Vitamin</option>
+        <option value="Antiviral">Antiviral</option>
+        <option value="Antiseptic">Antiseptic</option>
+        <option value="Antihistamine">Antihistamine</option>
+        <option value="Antidiabetic">Antidiabetic</option>
+      </select>
+    </div>
+
+    <!-- INVENTORY TABLE -->
+    <div class="table-wrap">
+      <table id="inventoryTable">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">Medicine Name <span class="sort-icon">⇅</span></th>
+            <th onclick="sortTable(1)">Category <span class="sort-icon">⇅</span></th>
+            <th onclick="sortTable(2)">Batch No.</th>
+            <th onclick="sortTable(3)">Mfg. Date <span class="sort-icon">⇅</span></th>
+            <th onclick="sortTable(4)">Expiry Date <span class="sort-icon">⇅</span></th>
+            <th onclick="sortTable(5)">Stock (units) <span class="sort-icon">⇅</span></th>
+            <th onclick="sortTable(6)">Price (₹) <span class="sort-icon">⇅</span></th>
+            <th onclick="sortTable(7)">Status <span class="sort-icon">⇅</span></th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Rows injected by app.js -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- TICKER BOTTOM NAVBAR -->
+  <div class="ticker-nav">
+    <div class="ticker-label">📦 Live Stock</div>
+    <div class="ticker-track">
+      <div class="ticker-inner" id="ticker"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
