@@ -1,6 +1,4 @@
-// =====================================
 // LOCAL STORAGE FUNCTIONS
-// =====================================
 
 function getProducts() {
 
@@ -22,123 +20,81 @@ function saveProducts(products) {
 
 
 
-// =====================================
-// GET PRODUCTS
-// =====================================
 
-const products = getProducts();
+// SAMPLE DATA
 
-
-
-
-// =====================================
-// SAMPLE DATA IF STORAGE IS EMPTY
-// =====================================
+let products = getProducts();
 
 if (products.length === 0) {
 
-  const sampleProducts = [
+  products = [
 
     {
       id: Date.now(),
-
       name: "Paracetamol",
-
       category: "Tablet",
-
       quantity: 5,
-
-      expiry: "2026-05-08",
-
-      price: 20
+      expiry: "2026-05-08"
     },
 
     {
       id: Date.now() + 1,
-
       name: "Vitamin C",
-
       category: "Supplement",
-
       quantity: 15,
-
-      expiry: "2026-05-14",
-
-      price: 50
+      expiry: "2026-05-20"
     },
 
     {
       id: Date.now() + 2,
-
-      name: "Dolo 650",
-
-      category: "Tablet",
-
-      quantity: 3,
-
-      expiry: "2026-06-10",
-
-      price: 30
-    },
-
-    {
-      id: Date.now() + 3,
-
       name: "Cough Syrup",
-
       category: "Syrup",
-
-      quantity: 7,
-
-      expiry: "2026-05-20",
-
-      price: 80
+      quantity: 3,
+      expiry: "2026-05-10"
     }
 
   ];
 
-  saveProducts(sampleProducts);
+  saveProducts(products);
 
-  location.reload();
 }
 
 
 
 
-// =====================================
-// TODAY DATE
-// =====================================
 
-const today = new Date();
+// ELEMENTS
 
-today.setHours(0, 0, 0, 0);
-
-
-
-
-// =====================================
-// SELECT HTML ELEMENTS
-// =====================================
-
-const expiredContainer =
+const tableBody =
   document.getElementById(
-    "expired-container"
-  );
-
-const expiringContainer =
-  document.getElementById(
-    "expiring-container"
-  );
-
-const lowstockContainer =
-  document.getElementById(
-    "lowstock-container"
+    "table-body"
   );
 
 const searchInput =
   document.getElementById(
     "search"
   );
+
+const sortSelect =
+  document.getElementById(
+    "sort"
+  );
+
+const emptyState =
+  document.getElementById(
+    "empty-state"
+  );
+
+const toast =
+  document.getElementById(
+    "toast"
+  );
+
+
+
+
+
+// COUNTS
 
 const expiredCount =
   document.getElementById(
@@ -155,462 +111,338 @@ const lowstockCount =
     "lowstock-count"
   );
 
+const totalCount =
+  document.getElementById(
+    "total-count"
+  );
 
 
 
-// =====================================
-// FUNCTION TO CALCULATE DAYS LEFT
-// =====================================
 
-function getDaysLeft(expiryDate) {
+
+// DATE
+
+const today = new Date();
+
+today.setHours(0,0,0,0);
+
+
+
+
+
+// STATUS FUNCTION
+
+function getStatus(product) {
 
   const expiry =
-    new Date(expiryDate);
+    new Date(product.expiry);
 
-  const difference =
-    expiry - today;
+  const days =
+    (expiry - today)
+    / (1000 * 60 * 60 * 24);
 
-  return Math.ceil(
+  if (expiry < today) {
 
-    difference /
-
-    (1000 * 60 * 60 * 24)
-
-  );
-
-}
-
-
-
-
-// =====================================
-// FUNCTION TO FORMAT DATE
-// =====================================
-
-function formatDate(date) {
-
-  return new Date(date)
-    .toLocaleDateString();
-
-}
-
-
-
-
-// =====================================
-// GET ALERT DATA
-// =====================================
-
-function getAlertData() {
-
-  const products = getProducts();
-
-
-
-
-  // EXPIRED PRODUCTS
-
-  const expiredProducts =
-
-    products.filter(product => {
-
-      return new Date(product.expiry)
-        < today;
-
-    });
-
-
-
-
-  // EXPIRING SOON PRODUCTS
-
-  const expiringSoon =
-
-    products.filter(product => {
-
-      const expiryDate =
-        new Date(product.expiry);
-
-      const difference =
-        expiryDate - today;
-
-      const daysLeft =
-
-        difference /
-
-        (1000 * 60 * 60 * 24);
-
-      return daysLeft <= 7
-        && daysLeft >= 0;
-
-    });
-
-
-
-
-  // LOW STOCK PRODUCTS
-
-  const lowStock =
-
-    products.filter(product => {
-
-      return product.quantity < 10;
-
-    });
-
-
-
-
-  return {
-
-    expiredProducts,
-
-    expiringSoon,
-
-    lowStock
-
-  };
-
-}
-
-
-
-
-// =====================================
-// REUSABLE RENDER FUNCTION
-// =====================================
-
-function renderProducts(
-
-  container,
-
-  title,
-
-  products,
-
-  colorClass,
-
-  emptyMessage,
-
-  extraInfo
-
-) {
-
-  container.innerHTML = `
-
-    <h2>
-
-      ${title}
-
-      (${products.length})
-
-    </h2>
-
-    ${products.length > 0
-
-      ?
-
-      products.map(product => `
-
-        <div class="alert-card ${colorClass}">
-
-          <div class="card-top">
-
-            <h3>${product.name}</h3>
-
-            <span class="category">
-
-              ${product.category}
-
-            </span>
-
-          </div>
-
-          <p>
-
-            ${extraInfo(product)}
-
-          </p>
-
-          <div class="price">
-
-            ₹${product.price}
-
-          </div>
-
-        </div>
-
-      `).join("")
-
-      :
-
-      `<p class="empty-message">
-
-        ${emptyMessage}
-
-      </p>`
-
-    }
-
-  `;
-
-}
-
-
-
-
-// =====================================
-// DISPLAY ALERTS
-// =====================================
-
-function showAlerts(searchValue = "") {
-
-  const {
-
-    expiredProducts,
-
-    expiringSoon,
-
-    lowStock
-
-  } = getAlertData();
-
-
-
-
-  // SUMMARY COUNTS
-
-  expiredCount.textContent =
-
-    expiredProducts.length;
-
-  expiringCount.textContent =
-
-    expiringSoon.length;
-
-  lowstockCount.textContent =
-
-    lowStock.length;
-
-
-
-
-  // SEARCH FILTERING
-
-  const filteredExpired =
-
-    expiredProducts.filter(product => {
-
-      return product.name
-        .toLowerCase()
-        .includes(searchValue);
-
-    });
-
-
-
-
-  const filteredExpiring =
-
-    expiringSoon.filter(product => {
-
-      return product.name
-        .toLowerCase()
-        .includes(searchValue);
-
-    });
-
-
-
-
-  const filteredLowStock =
-
-    lowStock.filter(product => {
-
-      return product.name
-        .toLowerCase()
-        .includes(searchValue);
-
-    });
-
-
-
-
-  // RENDER EXPIRED PRODUCTS
-
-  renderProducts(
-
-    expiredContainer,
-
-    "Expired Products",
-
-    filteredExpired,
-
-    "red",
-
-    "No expired products",
-
-    product => `
-
-      Expired On:
-      ${formatDate(product.expiry)}
-
-      <br><br>
-
-      Quantity:
-      ${product.quantity}
-
-    `
-  );
-
-
-
-
-  // RENDER EXPIRING SOON PRODUCTS
-
-  renderProducts(
-
-    expiringContainer,
-
-    "Expiring Soon",
-
-    filteredExpiring,
-
-    "yellow",
-
-    "No products expiring soon",
-
-    product => `
-
-      Expiry Date:
-      ${formatDate(product.expiry)}
-
-      <br><br>
-
-      ${getDaysLeft(product.expiry)}
-      days left
-
-    `
-  );
-
-
-
-
-  // RENDER LOW STOCK PRODUCTS
-
-  renderProducts(
-
-    lowstockContainer,
-
-    "Low Stock",
-
-    filteredLowStock,
-
-    "blue",
-
-    "No low stock alerts",
-
-    product => `
-
-      Quantity Left:
-      ${product.quantity}
-
-      <br><br>
-
-      Expiry:
-      ${formatDate(product.expiry)}
-
-    `
-  );
-
-}
-
-
-
-
-// =====================================
-// INITIAL PAGE LOAD
-// =====================================
-
-showAlerts();
-
-
-
-
-// =====================================
-// SEARCH FUNCTIONALITY
-// =====================================
-
-searchInput.addEventListener(
-
-  "input",
-
-  function(event) {
-
-    const value =
-
-      event.target.value
-        .toLowerCase();
-
-    showAlerts(value);
+    return "expired";
 
   }
 
+  if (days <= 7) {
+
+    return "expiring";
+
+  }
+
+  if (product.quantity < 10) {
+
+    return "lowstock";
+
+  }
+
+  return "safe";
+
+}
+
+
+
+
+
+// SHOW COUNTS
+
+function updateCounts() {
+
+  expiredCount.textContent =
+    products.filter(
+      p => getStatus(p) === "expired"
+    ).length;
+
+  expiringCount.textContent =
+    products.filter(
+      p => getStatus(p) === "expiring"
+    ).length;
+
+  lowstockCount.textContent =
+    products.filter(
+      p => getStatus(p) === "lowstock"
+    ).length;
+
+  totalCount.textContent =
+    products.length;
+
+}
+
+
+
+
+
+// RENDER TABLE
+
+function renderTable(data) {
+
+  tableBody.innerHTML = "";
+
+  if (data.length === 0) {
+
+    emptyState.style.display =
+      "block";
+
+    return;
+
+  }
+
+  emptyState.style.display =
+    "none";
+
+
+
+
+
+  data.forEach(product => {
+
+    const status =
+      getStatus(product);
+
+    const row = `
+
+      <tr>
+
+        <td>
+          ${product.name}
+        </td>
+
+        <td>
+          ${product.category}
+        </td>
+
+        <td>
+          ${product.quantity}
+        </td>
+
+        <td>
+          ${product.expiry}
+        </td>
+
+        <td>
+
+          <span
+            class="badge ${status}"
+          >
+
+            ${status}
+
+          </span>
+
+        </td>
+
+      </tr>
+
+    `;
+
+    tableBody.innerHTML += row;
+
+  });
+
+}
+
+
+
+
+
+// FILTER FUNCTION
+
+function filterAlerts(type) {
+
+  let filtered = [...products];
+
+  if (type !== "all") {
+
+    filtered = filtered.filter(
+      product =>
+        getStatus(product) === type
+    );
+
+  }
+
+  renderTable(filtered);
+
+}
+
+
+
+
+
+// SEARCH
+
+searchInput.addEventListener(
+  "input",
+  function() {
+
+    const value =
+      this.value.toLowerCase();
+
+    const filtered =
+      products.filter(product => {
+
+        return (
+
+          product.name
+            .toLowerCase()
+            .includes(value)
+
+          ||
+
+          product.category
+            .toLowerCase()
+            .includes(value)
+
+          ||
+
+          product.expiry
+            .includes(value)
+
+          ||
+
+          product.quantity
+            .toString()
+            .includes(value)
+
+        );
+
+      });
+
+    renderTable(filtered);
+
+  }
 );
 
 
 
 
-// =====================================
-// FETCH API USING ASYNC/AWAIT
-// =====================================
 
-async function fetchMedicineData() {
+// SORT
 
-  try {
+sortSelect.addEventListener(
+  "change",
+  function() {
 
-    const response =
+    const value = this.value;
 
-      await fetch(
-        "https://dummyjson.com/products"
-      );
+    let sorted = [...products];
 
+    if (value === "name") {
 
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        "Failed to fetch data"
+      sorted.sort((a,b) =>
+        a.name.localeCompare(b.name)
       );
 
     }
 
+    if (value === "quantity") {
 
+      sorted.sort((a,b) =>
+        a.quantity - b.quantity
+      );
 
+    }
 
-    const data =
-      await response.json();
+    if (value === "expiry") {
 
+      sorted.sort((a,b) =>
+        new Date(a.expiry)
+        - new Date(b.expiry)
+      );
 
+    }
 
-
-    console.log(
-      "Fetched API Data:",
-      data
-    );
+    renderTable(sorted);
 
   }
+);
 
-  catch(error) {
 
-    console.log(
 
-      "Fetch Error:",
 
-      error
 
+// EXPORT
+
+document.getElementById(
+  "export-btn"
+).addEventListener(
+  "click",
+  function() {
+
+    const data =
+      JSON.stringify(
+        products,
+        null,
+        2
+      );
+
+    const blob =
+      new Blob([data], {
+        type: "application/json"
+      });
+
+    const url =
+      URL.createObjectURL(blob);
+
+    const a =
+      document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+      "alerts-report.json";
+
+    a.click();
+
+  }
+);
+
+
+
+
+
+// TOAST
+
+function showToast() {
+
+  const expired =
+    products.some(
+      p => getStatus(p) === "expired"
     );
+
+  if (expired) {
+
+    toast.style.display =
+      "block";
+
+    setTimeout(() => {
+
+      toast.style.display =
+        "none";
+
+    }, 3000);
 
   }
 
@@ -619,8 +451,11 @@ async function fetchMedicineData() {
 
 
 
-// =====================================
-// CALL FETCH FUNCTION
-// =====================================
 
-fetchMedicineData();
+// INITIAL LOAD
+
+updateCounts();
+
+renderTable(products);
+
+showToast();
