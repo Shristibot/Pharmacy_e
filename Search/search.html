@@ -1,47 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Medicine Search</title>
 
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="search.css">
-</head>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="search.css" />
+  </head>
 
-<body>
-
+  <body>
     <nav class="navbar">
+      <h1 class="logo">PharmaFlow</h1>
 
-        <h1 class="logo">PharmaFlow</h1>
-
-        <div class="nav-links">
-            <a href="../index.html">Home</a>
-        </div>
-
+      <div class="nav-links">
+        <a href="../index.html">Dashboard</a>
+        <a href="../Product/add_product.html">Add Product</a>
+        <a href="../Inventory/inventory.html">Inventory</a>
+        <a href="../Alerts/alerts.html">Alerts</a>
+        <a class="active" href="../Search/search.html">Search</a>
+      </div>
     </nav>
 
-
     <section class="search-container">
+      <h2>Search Medicine Information</h2>
 
-        <h2>Search Medicine Information</h2>
-
-        <div class="search-box">
-            <input type="text" id="medicine-input" placeholder="Enter medicine name">
-            <button onclick="searchMedicine()">Search</button>
-        </div>
-
+      <div class="search-box">
+        <input
+          type="text"
+          id="medicine-input"
+          placeholder="Enter medicine name"
+        />
+        <button onclick="searchMedicine()">Search</button>
+      </div>
     </section>
 
+    <section id="result-container"></section>
 
-    <section id="result-container">
-
-    </section>
-
+    <div class="footer">
+      © 2026 PharmaFlow Pharmacy Management System. All rights reserved.
+    </div>
 
     <script src="search.js"></script>
-
-</body>
-
+  </body>
 </html>
