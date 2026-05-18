@@ -1,4 +1,6 @@
+// =========================================
 // LOCAL STORAGE FUNCTIONS
+// =========================================
 
 function getProducts() {
 
@@ -18,10 +20,9 @@ function saveProducts(products) {
 }
 
 
-
-
-
+// =========================================
 // SAMPLE DATA
+// =========================================
 
 let products = getProducts();
 
@@ -33,8 +34,8 @@ if (products.length === 0) {
       id: Date.now(),
       name: "Paracetamol",
       category: "Tablet",
-      quantity: 5,
-      expiry: "2026-05-08"
+      quantity: 4,
+      expiry: "2026-05-20"
     },
 
     {
@@ -42,15 +43,15 @@ if (products.length === 0) {
       name: "Vitamin C",
       category: "Supplement",
       quantity: 15,
-      expiry: "2026-05-20"
+      expiry: "2026-05-28"
     },
 
     {
       id: Date.now() + 2,
-      name: "Cough Syrup",
-      category: "Syrup",
-      quantity: 3,
-      expiry: "2026-05-10"
+      name: "Dolo 650",
+      category: "Tablet",
+      quantity: 2,
+      expiry: "2026-05-15"
     }
 
   ];
@@ -60,402 +61,333 @@ if (products.length === 0) {
 }
 
 
-
-
-
-// ELEMENTS
-
-const tableBody =
-  document.getElementById(
-    "table-body"
-  );
-
-const searchInput =
-  document.getElementById(
-    "search"
-  );
-
-const sortSelect =
-  document.getElementById(
-    "sort"
-  );
-
-const emptyState =
-  document.getElementById(
-    "empty-state"
-  );
-
-const toast =
-  document.getElementById(
-    "toast"
-  );
-
-
-
-
-
-// COUNTS
-
-const expiredCount =
-  document.getElementById(
-    "expired-count"
-  );
-
-const expiringCount =
-  document.getElementById(
-    "expiring-count"
-  );
-
-const lowstockCount =
-  document.getElementById(
-    "lowstock-count"
-  );
-
-const totalCount =
-  document.getElementById(
-    "total-count"
-  );
-
-
-
-
-
+// =========================================
 // DATE
+// =========================================
 
 const today = new Date();
 
 today.setHours(0,0,0,0);
 
 
+// =========================================
+// ELEMENTS
+// =========================================
+
+const tableBody =
+  document.getElementById("table-body");
+
+const searchInput =
+  document.getElementById("search");
+
+const sortSelect =
+  document.getElementById("sort");
+
+const filterButtons =
+  document.querySelectorAll(".filter-btn");
+
+const expiredCount =
+  document.getElementById("expired-count");
+
+const expiringCount =
+  document.getElementById("expiring-count");
+
+const lowstockCount =
+  document.getElementById("lowstock-count");
 
 
+// =========================================
+// GET DAYS LEFT
+// =========================================
 
+function getDaysLeft(expiryDate) {
+
+  const expiry =
+    new Date(expiryDate);
+
+  return Math.ceil(
+    (expiry - today) /
+    (1000 * 60 * 60 * 24)
+  );
+
+}
+// =========================================
 // STATUS FUNCTION
+// =========================================
 
 function getStatus(product) {
 
-  const expiry =
-    new Date(product.expiry);
+  const daysLeft =
+    getDaysLeft(product.expiry);
 
-  const days =
-    (expiry - today)
-    / (1000 * 60 * 60 * 24);
+  if (daysLeft < 0) {
 
-  if (expiry < today) {
-
-    return "expired";
+    return {
+      text: "Expired",
+      class: "expired"
+    };
 
   }
 
-  if (days <= 7) {
+  if (daysLeft <= 7) {
 
-    return "expiring";
+    return {
+      text: "Expiring Soon",
+      class: "expiring"
+    };
 
   }
 
   if (product.quantity < 10) {
 
-    return "lowstock";
+    return {
+      text: "Low Stock",
+      class: "lowstock"
+    };
 
   }
 
-  return "safe";
+  return {
+    text: "Safe",
+    class: "safe"
+  };
 
 }
-
-
-
-
-
-// SHOW COUNTS
+// =========================================
+// UPDATE COUNTS
+// =========================================
 
 function updateCounts() {
 
-  expiredCount.textContent =
+  const expired =
     products.filter(
-      p => getStatus(p) === "expired"
-    ).length;
+      p => getDaysLeft(p.expiry) < 0
+    );
+
+  const expiring =
+    products.filter(
+      p => {
+        const days =
+          getDaysLeft(p.expiry);
+
+        return days >= 0 && days <= 7;
+      }
+    );
+
+  const lowstock =
+    products.filter(
+      p => p.quantity < 10
+    );
+
+  expiredCount.textContent =
+    expired.length;
 
   expiringCount.textContent =
-    products.filter(
-      p => getStatus(p) === "expiring"
-    ).length;
+    expiring.length;
 
   lowstockCount.textContent =
-    products.filter(
-      p => getStatus(p) === "lowstock"
-    ).length;
-
-  totalCount.textContent =
-    products.length;
+    lowstock.length;
 
 }
-
-
-
-
-
+// =========================================
 // RENDER TABLE
+// =========================================
 
 function renderTable(data) {
 
-  tableBody.innerHTML = "";
-
   if (data.length === 0) {
 
-    emptyState.style.display =
-      "block";
-
-    return;
-
-  }
-
-  emptyState.style.display =
-    "none";
-
-
-
-
-
-  data.forEach(product => {
-
-    const status =
-      getStatus(product);
-
-    const row = `
+    tableBody.innerHTML = `
 
       <tr>
 
-        <td>
-          ${product.name}
-        </td>
-
-        <td>
-          ${product.category}
-        </td>
-
-        <td>
-          ${product.quantity}
-        </td>
-
-        <td>
-          ${product.expiry}
-        </td>
-
-        <td>
-
-          <span
-            class="badge ${status}"
-          >
-
-            ${status}
-
-          </span>
-
+        <td
+          colspan="5"
+          class="empty-state"
+        >
+          ✅ No products found
         </td>
 
       </tr>
 
     `;
 
-    tableBody.innerHTML += row;
-
-  });
-
-}
-
-
-
-
-
-// FILTER FUNCTION
-
-function filterAlerts(type) {
-
-  let filtered = [...products];
-
-  if (type !== "all") {
-
-    filtered = filtered.filter(
-      product =>
-        getStatus(product) === type
-    );
+    return;
 
   }
 
-  renderTable(filtered);
+  tableBody.innerHTML =
+    data.map(product => {
+
+      const status =
+        getStatus(product);
+
+      return `
+
+        <tr>
+
+          <td>
+            ${product.name}
+          </td>
+
+          <td>
+            ${product.category}
+          </td>
+
+          <td>
+            ${product.quantity}
+          </td>
+
+          <td>
+            ${product.expiry}
+          </td>
+
+          <td>
+
+            <span class="
+              badge
+              ${status.class}
+            ">
+
+              ${status.text}
+
+            </span>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    }).join("");
 
 }
+// =========================================
+// FILTER PRODUCTS
+// =========================================
 
+let currentFilter = "all";
 
+function filterProducts() {
 
+  let filtered =
+    [...products];
 
+  const searchValue =
+    searchInput.value.toLowerCase();
 
-// SEARCH
+  filtered = filtered.filter(product => {
 
+    return (
+      product.name
+        .toLowerCase()
+        .includes(searchValue)
+
+      ||
+
+      product.category
+        .toLowerCase()
+        .includes(searchValue)
+    );
+  });
+  if (currentFilter === "expired") {
+
+    filtered =
+      filtered.filter(
+        p => getDaysLeft(p.expiry) < 0
+      );
+  }
+  if (currentFilter === "expiring") {
+    filtered =
+      filtered.filter(
+        p => {
+          const days =
+            getDaysLeft(p.expiry);
+          return days >= 0 && days <= 7;
+        }
+      );
+  }
+  if (currentFilter === "lowstock") {
+    filtered =
+      filtered.filter(
+        p => p.quantity < 10
+      );
+  }
+  const sortValue =
+    sortSelect.value;
+  if (sortValue === "name") {
+    filtered.sort(
+      (a,b) =>
+      a.name.localeCompare(b.name)
+    );
+  }
+  if (sortValue === "quantity") {
+    filtered.sort(
+      (a,b) =>
+      a.quantity - b.quantity
+    );
+  }
+  if (sortValue === "expiry") {
+    filtered.sort(
+      (a,b) =>
+      new Date(a.expiry)
+      -
+      new Date(b.expiry)
+    );
+  }
+  renderTable(filtered);
+}
+// =========================================
+// EVENTS
+// =========================================
 searchInput.addEventListener(
   "input",
-  function() {
-
-    const value =
-      this.value.toLowerCase();
-
-    const filtered =
-      products.filter(product => {
-
-        return (
-
-          product.name
-            .toLowerCase()
-            .includes(value)
-
-          ||
-
-          product.category
-            .toLowerCase()
-            .includes(value)
-
-          ||
-
-          product.expiry
-            .includes(value)
-
-          ||
-
-          product.quantity
-            .toString()
-            .includes(value)
-
-        );
-
-      });
-
-    renderTable(filtered);
-
-  }
+  filterProducts
 );
-
-
-
-
-
-// SORT
-
 sortSelect.addEventListener(
   "change",
-  function() {
-
-    const value = this.value;
-
-    let sorted = [...products];
-
-    if (value === "name") {
-
-      sorted.sort((a,b) =>
-        a.name.localeCompare(b.name)
-      );
-
-    }
-
-    if (value === "quantity") {
-
-      sorted.sort((a,b) =>
-        a.quantity - b.quantity
-      );
-
-    }
-
-    if (value === "expiry") {
-
-      sorted.sort((a,b) =>
-        new Date(a.expiry)
-        - new Date(b.expiry)
-      );
-
-    }
-
-    renderTable(sorted);
-
-  }
+  filterProducts
 );
-
-
-
-
-
-// EXPORT
-
-document.getElementById(
-  "export-btn"
-).addEventListener(
-  "click",
-  function() {
-
-    const data =
-      JSON.stringify(
-        products,
-        null,
-        2
-      );
-
-    const blob =
-      new Blob([data], {
-        type: "application/json"
+filterButtons.forEach(button => {
+  button.addEventListener(
+    "click",
+    () => {
+      filterButtons.forEach(btn => {
+        btn.classList.remove("active");
       });
-
-    const url =
-      URL.createObjectURL(blob);
-
-    const a =
-      document.createElement("a");
-
-    a.href = url;
-
-    a.download =
-      "alerts-report.json";
-
-    a.click();
-
-  }
-);
-
-
-
-
-
-// TOAST
-
-function showToast() {
-
-  const expired =
-    products.some(
-      p => getStatus(p) === "expired"
-    );
-
-  if (expired) {
-
-    toast.style.display =
-      "block";
-
-    setTimeout(() => {
-
-      toast.style.display =
-        "none";
-
-    }, 3000);
-
-  }
-
-}
-
-
-
-
-
+      button.classList.add("active");
+      currentFilter =
+        button.dataset.filter;
+      filterProducts();
+    }
+  );
+});
+// =========================================
 // INITIAL LOAD
-
+// =========================================
 updateCounts();
-
-renderTable(products);
-
-showToast();
+filterProducts();
+// =========================================
+// FETCH API
+// =========================================
+async function fetchMedicineData() {
+  try {
+    const response =
+      await fetch(
+        "https://dummyjson.com/products"
+      );
+    const data =
+      await response.json();
+    console.log(
+      "Fetched API Data:",
+      data
+    );
+  }
+  catch(error) {
+    console.log(
+      "Fetch Error:",
+      error
+    );
+  }
+}
+fetchMedicineData();
