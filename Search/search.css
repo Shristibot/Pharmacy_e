@@ -1,91 +1,104 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .search-container {
+  flex: 1;
+  width: 90%;
+  margin: auto;
 
-    width: 90%;
-    margin: auto;
+  text-align: center;
 
-    text-align: center;
-
-    margin-top: 60px;
+  margin-top: 60px;
+}
+.nav-links a.active {
+  color: var(--primary);
 }
 
 .search-container h2 {
+  margin-bottom: 30px;
 
-    margin-bottom: 30px;
-
-    font-size: 36px;
+  font-size: 36px;
 }
 
 .search-box {
+  display: flex;
+  justify-content: center;
 
-    display: flex;
-    justify-content: center;
+  gap: 15px;
 
-    gap: 15px;
-
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .search-box input {
+  width: 320px;
 
-    width: 320px;
+  padding: 14px;
 
-    padding: 14px;
+  border: 1px solid var(--border);
 
-    border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 
-    border-radius: var(--radius-sm);
+  outline: none;
 
-    outline: none;
-
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .search-box button {
+  padding: 14px 22px;
 
-    padding: 14px 22px;
+  border: none;
 
-    border: none;
+  background: var(--primary);
 
-    background: var(--primary);
+  color: white;
 
-    color: white;
+  border-radius: var(--radius-sm);
 
-    border-radius: var(--radius-sm);
+  cursor: pointer;
 
-    cursor: pointer;
-
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .search-box button:hover {
-    background: var(--primary-dark);
+  background: var(--primary-dark);
 }
-
 
 /* ---------- RESULT ---------- */
 
 #result-container {
-
-    width: 80%;
-    margin: 40px auto;
+  width: 80%;
+  margin: 40px auto;
 }
 
 .result-card {
+  background: white;
 
-    background: white;
+  padding: 30px;
 
-    padding: 30px;
+  border-radius: var(--radius);
 
-    border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
 
-    box-shadow: var(--shadow-md);
-
-    line-height: 1.8;
+  line-height: 1.8;
 }
 
 .result-card h3 {
+  margin-bottom: 20px;
 
-    margin-bottom: 20px;
+  color: var(--primary);
+}
 
-    color: var(--primary);
+/* ---------- FOOTER ---------- */
+
+.footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: #fff;
+  border-top: 1px solid var(--border);
 }
