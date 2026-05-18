@@ -41,7 +41,7 @@ header {
 }
 
 .logo {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
   color: var(--green);
@@ -81,7 +81,7 @@ main {
 }
 
 .page-head h1 {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: -1px;
@@ -132,7 +132,7 @@ main {
   border: 1.5px solid var(--border);
   border-radius: 8px;
   font-size: .875rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--surface);
   color: var(--text);
   outline: none;
@@ -145,7 +145,7 @@ main {
   border: 1.5px solid var(--border);
   border-radius: 8px;
   font-size: .875rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--surface);
   color: var(--muted);
   cursor: pointer;
@@ -170,7 +170,7 @@ table {
 thead th {
   background: var(--green-lt);
   color: var(--green-dk);
-  font-family: 'Space Mono', monospace;
+  font-family: '', monospace;
   font-size: .75rem;
   font-weight: 700;
   letter-spacing: .04em;
